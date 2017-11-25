@@ -19,6 +19,9 @@ export default class ProductTable extends React.Component {
         this.setState({editing: null})
         this.props.handleUpdateProduct(update)
     }
+    handleDeleteProduct(id) {
+        this.props.handleDeleteProduct(id)
+    }
 
     toggleEditing(productId) {
         this.setState({editing: productId})
@@ -33,7 +36,8 @@ export default class ProductTable extends React.Component {
                     />
         } else {
             return <ProductRow 
-            onClick={this.toggleEditing.bind(this, product.id)} 
+            toggleEditing={this.toggleEditing.bind(this, product.id)}
+            deleteProduct={this.handleDeleteProduct.bind(this, product.id)} 
             key={product.id} 
             {...product}
             />
