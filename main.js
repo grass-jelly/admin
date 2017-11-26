@@ -5,13 +5,13 @@ import FormAddProduct from './FormAddProduct.jsx'
 
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore} from 'redux'
+import { createStore, applyMiddleware} from 'redux'
 import productApp from './reducers'
 import App from './components/App.js'
 import Root from './components/Root.jsx'
 import ProductTable from './components/ProductTable.jsx'
-
-let store = createStore(productApp)
+import thunk from 'redux-thunk'
+import { fetchProducts } from './actions'
 
 // const PRODUCTS = [
 //     {id: 1, name: 'p1', price: '$29.99', description: 'a product', 
@@ -24,6 +24,9 @@ let store = createStore(productApp)
 //     <ProductTable products={PRODUCTS} />,
 //     document.getElementById('container')
 // )
+
+let store = createStore(productApp, applyMiddleware(thunk))
+store.dispatch(fetchProducts())
 
 ReactDOM.render(
     <Provider store={store}>

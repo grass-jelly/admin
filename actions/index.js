@@ -1,9 +1,18 @@
 export const addProduct = product => {
-    console.log("addProduct")
-    console.log(product)
-    return {
-        type: 'ADD_PRODUCT',
-        product
+    return dispatch => {
+        fetch('http://bestlab.us:8080/products', {
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+              },
+            method: 'post', 
+            body: JSON.stringify(product)                
+        })
+        .then(response => response.json())
+        .then(product => dispatch({
+            type: 'ADD_PRODUCT',
+            product
+        }))
     }
 }
 
@@ -14,8 +23,23 @@ export const updateProduct = product => {
     }
 }
 export const deleteProduct = id => {
-    return {
-        type: 'DELETE_PRODUCT',
-        id
+    return dispatch => {
+        fetch('http://bestlab.us:8080/products', {method: 'delete'})
+        .then(response => response.json())
+        .then(data => dispatch({
+            type: 'DELETE_PRODUCT',
+            id
+        }))
+    }
+}
+
+export function fetchProducts() {
+    return dispatch => {
+        fetch('http://bestlab.us:8080/products')
+        .then(response => response.json())
+        .then(data => dispatch({
+            type: 'FETCH_PRODUCTS',
+            data
+        }))
     }
 }
