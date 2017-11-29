@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import products from './products.jsx'
+import productTypes from './productTypes.jsx'
 
-const productApp = combineReducers({
-    products
+const adminApp = combineReducers({
+    products,
+    productTypes
 })
 
-export default productApp
+export default adminApp
